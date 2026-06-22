@@ -1,0 +1,96 @@
+MIDDLE OF LINKED LIST
+class Solution {
+public:
+    ListNode* middleNode(ListNode* head) {
+        ListNode* slow = head;
+        ListNode* fast = head;
+
+        while (fast != NULL && fast->next != NULL) {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+
+        return slow;
+    }
+};
+_________________________________________________________________________________________________________________________________________--
+DELETE A NODE
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+
+class Solution {
+public:
+    void deleteNode(ListNode* node) {
+        node->val = node->next->val;
+        ListNode* temp = node->next;
+        node->next = node->next->next;
+        delete temp;
+    }
+};
+______________________________________________________________________________________________________________________________________________
+LINKED LIST CYCLE 
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+        ListNode *slow = head;
+        ListNode *fast = head;
+
+        while (fast != NULL && fast->next != NULL) {
+            slow = slow->next;           
+            fast = fast->next->next;     
+
+            if (slow == fast) {
+                return true;             
+            }
+        }
+
+        return false;                    
+    }
+};
+________________________________________________________________________________________________________________________________________________
+PALINDROME LINKED LIST 
+
+class Solution {
+public:
+    ListNode* reverse(ListNode* head) {
+        ListNode* prev = nullptr;
+        while (head) {
+            ListNode* nextNode = head->next;
+            head->next = prev;
+            prev = head;
+            head = nextNode;
+        }
+        return prev;
+    }
+
+    bool isPalindrome(ListNode* head) {
+        if (head == nullptr || head->next == nullptr)
+            return true;
+
+        ListNode* slow = head;
+        ListNode* fast = head;
+
+        while (fast && fast->next) {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+
+        ListNode* second = reverse(slow);
+        ListNode* first = head;
+
+        while (second) {
+            if (first->val != second->val)
+                return false;
+            first = first->next;
+            second = second->next;
+        }
+
+        return true;
+    }
+};
