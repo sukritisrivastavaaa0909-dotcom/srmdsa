@@ -1,0 +1,56 @@
+int largest=a[0];
+for(int i=0;i<n;i++){
+if(a[i]>largest){
+largest=a[i];
+}
+}
+cout<<largest;
+------------------------------------------------------------------------------------------------------------------------
+int(i=0;i<n;i++/)
+if 
+a[i]>a[i+1]%size]
+dip++;
+if(dip>1)
+return false;
+else 
+return true;
+------------------------------------------------------------------------------------------------------------------------
+mpp<int,int>mpp
+for(inti=0;i<num;i++){
+int left=target=num[i];
+if(mpp.find(left)!=mpp.end())
+{
+return{mpp[left],i};
+}
+}
+return{};
+_____________________________________________________________________________________________________________________________
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        unordered_map<int, int> mp;
+
+        for (int i = 0; i < nums.size(); i++) {
+            int x = target - nums[i];
+            if (mp.count(x))
+                return {mp[x], i};
+            mp[nums[i]] = i;
+        }
+
+        return {};
+    }
+};
+________________________________________________________________________________________________________________________-
+int subarraySum(vector<int>& nums, int k) {
+    unordered_map<int,int> mp;
+    mp[0] = 1;
+    int sum = 0, ans = 0;
+
+    for (int x : nums) {
+        sum += x;
+        ans += mp[sum - k];
+        mp[sum]++;
+    }
+
+    return ans;
+}
