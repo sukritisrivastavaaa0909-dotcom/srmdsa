@@ -1,0 +1,83 @@
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+        int low = 0, mid = 0, high = nums.size() - 1;
+
+        while (mid <= high) {
+            if (nums[mid] == 0) {
+                swap(nums[low], nums[mid]);
+                low++;
+                mid++;
+            }
+            else if (nums[mid] == 1) {
+                mid++;
+            }
+            else { // nums[mid] == 2
+                swap(nums[mid], nums[high]);
+                high--;
+            }
+        }
+    }
+};
+________________________________________________________________________________________________________________________
+LINEAR SEARCH 
+for(i=0;i<n;i++){
+if(a[i]==elem)
+return i;
+}
+_________________________________________________________________________________________________________________________
+ BINARY SEARCH
+l=0
+h=size-1
+while(l<=h){
+int mid=(l+h)/2
+if (a[mid]==target)
+return mid;
+elseif(a[mid]>>target)h=mid-1
+else
+l=mid+1
+}
+________________________________________________________________________________________________________________________
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+        int l = 0;
+        int h = nums.size() - 1;
+
+        while (l <= h) {
+            int mid = l + (h - l) / 2;
+
+            if (nums[mid] == target)
+                return mid;
+            else if (nums[mid] > target)
+                h = mid - 1;
+            else
+                l = mid + 1;
+        }
+
+        return -1;
+    }
+};
+_________________________________________________________________________________________________________________________
+INSERTION
+class Solution {
+public:
+    int searchInsert(vector<int>& nums, int target) {
+        int l = 0;
+        int h = nums.size() - 1;
+
+        while (l <= h) {
+            int mid = l + (h - l) / 2;
+
+            if (nums[mid] == target)
+                return mid;
+            else if (nums[mid] > target)
+                h = mid - 1;
+            else
+                l = mid + 1;
+        }
+
+        return l;
+    }
+};
+___________________________________________________________________________________________________________________________
