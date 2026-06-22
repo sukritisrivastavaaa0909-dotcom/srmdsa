@@ -1,0 +1,207 @@
+class Solution {
+public:
+    int fib(int n) {
+        if (n <= 1) {
+            return n;
+        }
+
+        int prev2 = 0, prev1 = 1;
+
+        for (int i = 2; i <= n; i++) {
+            int curr = prev1 + prev2;
+            prev2 = prev1;
+            prev1 = curr;
+        }
+
+        return prev1;
+    }
+};
+_____________________________________________________________________________________________________________________________
+class Solution {
+public:
+    int climbStairs(int n) {
+        if (n <= 2)
+            return n;
+
+        int first = 1, second = 2;
+
+        for (int i = 3; i <= n; i++) {
+            int third = first + second;
+            first = second;
+            second = third;
+        }
+
+        return second;
+    }
+};
+___________________________________________________________________________________________________________________________
+class Solution {
+public:
+    int climbStairs(int n) {
+        if (n <= 2)
+            return n;
+
+        int a = 1, b = 2, c;
+
+        for (int i = 3; i <= n; i++) {
+            c = a + b;
+            a = b;
+            b = c;
+        }
+
+        return b;
+    }
+};
+__________________________________________________________________________________________________________________
+
+koko eating
+class Solution {
+public:
+    bool canEat(vector<int>& piles, int h, int k) {
+        long long hours = 0;
+
+        for (int bananas : piles) {
+            hours += (bananas + k - 1) / k; // ceil(bananas / k)
+        }
+
+        return hours <= h;
+    }
+
+    int minEatingSpeed(vector<int>& piles, int h) {
+        int low = 1;
+        int high = *max_element(piles.begin(), piles.end());
+
+        while (low < high) {
+            int mid = low + (high - low) / 2;
+
+            if (canEat(piles, h, mid))
+                high = mid;
+            else
+                low = mid + 1;
+        }
+
+        return low;
+    }
+};
+__________________________________________________________________________________________________________________
+three sum
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        vector<vector<int>> ans;
+
+        sort(nums.begin(), nums.end());
+
+        int n = nums.size();
+
+        for (int i = 0; i < n - 2; i++) {
+
+            // Skip duplicate first elements
+            if (i > 0 && nums[i] == nums[i - 1])
+                continue;
+
+            int left = i + 1;
+            int right = n - 1;
+
+            while (left < right) {
+                int sum = nums[i] + nums[left] + nums[right];
+
+                if (sum == 0) {
+                    ans.push_back({nums[i], nums[left], nums[right]});
+
+                    left++;
+                    right--;
+
+                    while (left < right && nums[left] == nums[left - 1])
+                        left++;
+
+                    while (left < right && nums[right] == nums[right + 1])
+                        right--;
+
+                } else if (sum < 0) {
+                    left++;
+                } else {
+                    right--;
+                }
+            }
+        }
+
+        return ans;
+    }
+};
+_____________________________________________________________________________________________________________________
+class Solution {
+public:
+    vector<vector<int>> ans;
+
+    void solve(vector<int>& candidates, int target, int index, vector<int>& temp) {
+        if (target == 0) {
+            ans.push_back(temp);
+            return;
+        }
+
+        if (target < 0 || index >= candidates.size()) {
+            return;
+        }
+
+        temp.push_back(candidates[index]);
+        solve(candidates, target - candidates[index], index, temp);
+        temp.pop_back();
+
+        
+        solve(candidates, target, index + 1, temp);
+    }
+
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<int> temp;
+        solve(candidates, target, 0, temp);
+        return ans;
+    }
+};
+____________________________________________________________________________________________________________________________________________________
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        int candidate = nums[0];
+        int count = 0;
+
+        for (int num : nums) {
+            if (count == 0) {
+                candidate = num;
+            }
+
+            if (num == candidate)
+                count++;
+            else
+                count--;
+        }
+
+        return candidate;
+    }
+};
+_______________________________________________________________________________________________________________________________________________
+class Solution {
+public:
+    vector<vector<int>> ans;
+    vector<int> temp;
+
+    void dfs(vector<int>& c, int target, int i) {
+        if (target == 0) {
+            ans.push_back(temp);
+            return;
+        }
+
+        if (i == c.size() || target < 0) return;
+
+        temp.push_back(c[i]);
+        dfs(c, target - c[i], i);   
+        temp.pop_back();
+
+        dfs(c, target, i + 1);      
+    }
+
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        dfs(candidates, target, 0);
+        return ans;
+    }
+};
